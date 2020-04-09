@@ -20,9 +20,9 @@ import java.util.HashSet;
 
 public class Controller {
     private static boolean allCheckBoxClicked;
-    ObservableList<Extension> extensionsData = FXCollections.observableArrayList();
-    ObservableList<String> alwaysIgnoreList = FXCollections.observableArrayList();
-    ObservableList<String> alwaysCleanList = FXCollections.observableArrayList();
+    private ObservableList<Extension> extensionsData = FXCollections.observableArrayList();
+    private ObservableList<String> alwaysIgnoreList = FXCollections.observableArrayList();
+    private ObservableList<String> alwaysCleanList = FXCollections.observableArrayList();
 
     @FXML
     private TableView<Extension> extensionsCheckboxTable;
@@ -111,8 +111,9 @@ public class Controller {
         Settings.load(DataType.CLEAN_DATA);
         Settings.load(DataType.IGNORE_DATA);
 
-        Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
-
+        if (!Directory.workingDirectoryPath.equals("")) {
+            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+        }
         pathTextField.setText(Directory.workingDirectoryPath);
 
         if (Data.alwaysIgnoreFileList.size() > 0) {
