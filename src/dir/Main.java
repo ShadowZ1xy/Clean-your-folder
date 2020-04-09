@@ -1,7 +1,5 @@
 package dir;
 
-import dir.cleaner.data.DataType;
-import dir.cleaner.settings.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,9 +21,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        Settings.loadWorkingPath();
-        Settings.load(DataType.IGNORE_DATA);
-        Settings.load(DataType.CLEAN_DATA);
         launch(args);
     }
 }

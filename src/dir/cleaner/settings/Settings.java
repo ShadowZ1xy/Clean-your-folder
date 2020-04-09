@@ -20,6 +20,9 @@ public class Settings {
     private static final String ignoreListKey = "ignoreListKey";
     private static final String pathKey = "pathKey";
 
+    /**
+     * save: cleanList, ignoreLeast and directory what need to be cleaned in data.json file
+     */
     public static void save() {
         JSONObject jsonObject = new JSONObject();
         writeList(Data.alwaysCleanFileList, DataType.CLEAN_DATA, jsonObject);
@@ -27,6 +30,11 @@ public class Settings {
         saveWorkingPath(jsonObject);
     }
 
+    /**
+     * load list from data.json file and place it in appropriate Data class cell
+     *
+     * @param type data type what need to be load
+     */
     public static void load(DataType type) {
         switch (type) {
             case IGNORE_DATA:
@@ -38,6 +46,12 @@ public class Settings {
         }
     }
 
+    /**
+     * write HashSet<Extension> from Data class to data.json file
+     * @param set HashSet from Data class
+     * @param type what identificate key to save in json
+     * @param jsonObject object gained outside for using in Settings.save() function (common for two calls for save)
+     */
     @SuppressWarnings("unchecked") //adding this line because json-simple library uses old java version
     private static void writeList(HashSet<Extension> set, DataType type, JSONObject jsonObject) {
         JSONArray jsonArray = new JSONArray();
@@ -58,6 +72,11 @@ public class Settings {
         }
     }
 
+    /**
+     * load list from data.json and put it to Data class storage
+     * @param type of list to load
+     * @return set of extensions
+     */
     @SuppressWarnings("unchecked") //adding this line because json-simple library uses old java version
     private static HashSet<Extension> loadList(DataType type) {
         HashSet<Extension> resultHashSet = new HashSet<>();
@@ -78,6 +97,10 @@ public class Settings {
         return resultHashSet;
     }
 
+    /**
+     * save path to data.json file for load it after program restart
+     * @param jsonObject common for save functions calls, see - Settings.save() function
+     */
     @SuppressWarnings("unchecked") //adding this line because json-simple library uses old java version
     private static void saveWorkingPath(JSONObject jsonObject) {
         jsonObject.put(pathKey, Directory.workingDirectoryPath);
@@ -91,6 +114,9 @@ public class Settings {
         }
     }
 
+    /**
+     * load working path from data.json and put it in Directory.workingDirectoryPath string
+     */
     public static void loadWorkingPath() {
         JSONParser jsonParser = new JSONParser();
         try {

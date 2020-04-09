@@ -1,15 +1,22 @@
 package dir.cleaner;
 
 import dir.cleaner.data.Data;
-import dir.gui.Controller;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
 
 public class Cleaner {
+
+    /**
+     * get files from current work directory (Directory.workingDirectoryPath)
+     * get extensions from gui Table, add list of always clean extensions (from Data.alwaysCleanFileList)
+     * filter files with extensions what's need to cleaned
+     * clean all them with putting there appropriate directory's
+     *
+     * @param extensionTableView get from Controller class
+     * @return true if all okay, false if directory is empty
+     */
+    @SuppressWarnings("all") //for remove folderToMove.mkdir() "result is ignored" warning
     public static boolean cleanDirectory(TableView<Extension> extensionTableView) {
         File[] files;
         try {
@@ -32,14 +39,5 @@ public class Cleaner {
             }
         }
         return true;
-    }
-
-    public static HashSet<Extension> getCleanExtList(ObservableList<Extension> list) {
-        HashSet<Extension> set = new HashSet<>();
-        list.stream()
-                .filter((s) -> s.getCheck().isSelected())
-                .forEach(set::add);
-        set.addAll(Data.alwaysCleanFileList);
-        return set;
     }
 }

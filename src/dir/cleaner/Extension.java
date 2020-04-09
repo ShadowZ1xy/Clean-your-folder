@@ -2,9 +2,6 @@ package dir.cleaner;
 
 import javafx.scene.control.CheckBox;
 
-import java.util.HashSet;
-import java.util.Iterator;
-
 public class Extension {
     private CheckBox check;
     private String name;
@@ -31,27 +28,12 @@ public class Extension {
         this.name = name;
     }
 
-    public static String extListToString(HashSet<Extension> list) {
-        StringBuilder stringBuilder = new StringBuilder();
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext()) {
-            stringBuilder.append(iterator.next());
-            if (iterator.hasNext()) {
-                stringBuilder.append(", ");
-            }
-        }
-        return stringBuilder.toString();
-    }
 
-    public static HashSet<Extension> stringToExtList(String str) {
-        String[] array = str.split(", ");
-        HashSet<Extension> extList = new HashSet<>();
-        for (String s : array) {
-            extList.add(new Extension(s));
-        }
-        return extList;
-    }
-
+    /**
+     * override hashcode for correct work in HashSet
+     *
+     * @return hashcode based on Extension.name
+     */
     @Override
     public int hashCode() {
         return name.hashCode();
@@ -62,6 +44,11 @@ public class Extension {
         return name;
     }
 
+    /**
+     * override equals for correct work in HashSet
+     * @param obj for comparison with this class
+     * @return true if objects are identical, false if not
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Extension) {

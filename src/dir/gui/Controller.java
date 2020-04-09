@@ -16,7 +16,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.HashSet;
 
 public class Controller {
     private static boolean allCheckBoxClicked;
@@ -85,6 +84,11 @@ public class Controller {
         Cleaner.cleanDirectory(extensionsCheckboxTable);
     }
 
+    /**
+     * browse directory with windows explorer folder choose option
+     * save that to Directory.workingDirectoryPath
+     * update extensions data and save them into data.json file
+     */
     @FXML
     public void browseButtonHandler() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -105,6 +109,10 @@ public class Controller {
         System.exit(0);
     }
 
+    /**
+     * load data from data.json file
+     * setup them into Data and Directory classes
+     */
     @FXML
     void initialize() {
         Settings.loadWorkingPath();
@@ -137,6 +145,9 @@ public class Controller {
         acExtList.setItems(alwaysCleanList);
     }
 
+    /**
+     * always ignore list "add" button handler
+     */
     @FXML
     void aiAddHandler() {
         String text = aiTextField.getText();
@@ -148,6 +159,9 @@ public class Controller {
         }
     }
 
+    /**
+     * always clean list "add" button handler
+     */
     @FXML
     void acAddHandler() {
         String text = acTextField.getText();
@@ -159,6 +173,9 @@ public class Controller {
         }
     }
 
+    /**
+     * always ignore list "delete" button handler
+     */
     @FXML
     void aiDeleteHandler() {
         if(aiExtList.getSelectionModel().getSelectedItem() != null) {
@@ -170,6 +187,9 @@ public class Controller {
         }
     }
 
+    /**
+     * always clean list "delete" button handler
+     */
     @FXML
     void acDeleteHandler() {
         if(acExtList.getSelectionModel().getSelectedItem() != null) {

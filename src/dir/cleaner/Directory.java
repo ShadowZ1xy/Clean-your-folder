@@ -7,24 +7,18 @@ import javafx.collections.ObservableList;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Directory {
     public static String workingDirectoryPath;
 
     public final static String programDirectory = System.getProperty("user.dir");
 
-    private static File file;
 
-    public Directory(String absolutePathToDirectory) {
-        file = new File(absolutePathToDirectory);
-        if (workingDirectoryPath == null) {
-            workingDirectoryPath = absolutePathToDirectory;
-        }
-    }
-
-
+    /**
+     * get only files from directory (exclude folders)
+     *
+     * @return array of files
+     */
     public static File[] getAllFiles() {
         File directory = new File(workingDirectoryPath);
         return directory.listFiles(File::isFile);
@@ -34,10 +28,15 @@ public class Directory {
      * @param ext String ext
      * @return path to the extension folder
      */
-    public static String getExtDirPath(String ext) {
+    static String getExtDirPath(String ext) {
         return workingDirectoryPath + "\\" + "0_" + ext + "_files";
     }
 
+    /**
+     * get files extensions for show them in gui extension table
+     * @param files get'ed from Directory.getAllFiles()
+     * @return list of extensions without duplicates, without Data.always"ignore/clean"List elements and files without extensions
+     */
     public static ObservableList<Extension> getOnlyShowFilesExtensions(File[] files) {
         HashSet<Extension> hashSet = new HashSet<>();
         ObservableList<Extension> resultList = FXCollections.observableArrayList();
@@ -51,13 +50,4 @@ public class Directory {
                 .forEach(resultList::add);
         return resultList;
     }
-
-    /*public static List<File> getOnlyNeedFiles(File[] files) {
-
-    }
-
-    private static HashSet<Extension> getOnlyNeedExtensions(String workingPath) {
-        HashSet<Extension> set = new HashSet<>();
-
-    }*/
 }
