@@ -1,6 +1,9 @@
 package dir.cleaner;
 
 import dir.cleaner.data.Data;
+import dir.cleaner.util.Directory;
+import dir.cleaner.util.Extension;
+import dir.cleaner.util.FileOperation;
 import javafx.scene.control.TableView;
 
 import java.io.File;
@@ -16,7 +19,7 @@ public class Cleaner {
      * @param extensionTableView get from Controller class
      * @return true if all okay, false if directory is empty
      */
-    @SuppressWarnings("all") //for remove folderToMove.mkdir() "result is ignored" warning
+    @SuppressWarnings("all") //for remove renameTo "result is ignored" warning
     public static boolean cleanDirectory(TableView<Extension> extensionTableView) {
         File[] files;
         try {
@@ -27,13 +30,13 @@ public class Cleaner {
         }
         for (File file : files) {
             Extension fileExtension;
-            fileExtension = MyFile.getExtension(file);
+            fileExtension = FileOperation.getExtension(file);
             if (fileExtension.getName().equals(" ")) {
                 continue;
             }
             if (Data.collectExtClearList(extensionTableView).contains(fileExtension)) {
                 String moveToDirPath = Directory.getExtDirPath(fileExtension).getAbsolutePath();
-                MyFile.moveTo(file, moveToDirPath);
+                FileOperation.moveTo(file, moveToDirPath);
             }
         }
         Directory.getAllExtDirectories().forEach((e, f) -> {

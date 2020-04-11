@@ -1,11 +1,11 @@
 package dir.gui;
 
 import dir.cleaner.Cleaner;
-import dir.cleaner.Directory;
-import dir.cleaner.Extension;
 import dir.cleaner.data.Data;
 import dir.cleaner.data.DataType;
 import dir.cleaner.settings.Settings;
+import dir.cleaner.util.Directory;
+import dir.cleaner.util.Extension;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -98,7 +98,7 @@ public class Controller {
             String dirAbsolutePath = file.getAbsolutePath();
             pathTextField.setText(dirAbsolutePath);
             Directory.workingDirectoryPath = dirAbsolutePath;
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
             Settings.save();
         }
     }
@@ -120,7 +120,7 @@ public class Controller {
         Settings.load(DataType.IGNORE_DATA);
 
         if (!Directory.workingDirectoryPath.equals("")) {
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
         }
         pathTextField.setText(Directory.workingDirectoryPath);
 
@@ -154,7 +154,7 @@ public class Controller {
         if (text.length() != 0 && !aiExtList.getItems().contains(text)) {
             aiExtList.getItems().add(text);
             Data.alwaysIgnoreFileList.add(new Extension(text));
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
             Settings.save();
         }
     }
@@ -168,7 +168,7 @@ public class Controller {
         if (text.length() != 0 && !acExtList.getItems().contains(text)) {
             acExtList.getItems().add(text);
             Data.alwaysCleanFileList.add(new Extension(text));
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
             Settings.save();
         }
     }
@@ -182,7 +182,7 @@ public class Controller {
             String selected = aiExtList.getSelectionModel().getSelectedItem();
             Data.alwaysIgnoreFileList.remove(new Extension(selected));
             aiExtList.getItems().remove(selected);
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
             Settings.save();
         }
     }
@@ -196,7 +196,7 @@ public class Controller {
             String selected = acExtList.getSelectionModel().getSelectedItem();
             Data.alwaysCleanFileList.remove(new Extension(selected));
             acExtList.getItems().remove(selected);
-            Update.optionalExtensionList(extensionsData, extensionsCheckboxTable);
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
             Settings.save();
         }
     }

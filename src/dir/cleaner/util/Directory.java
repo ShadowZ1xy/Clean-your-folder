@@ -1,4 +1,4 @@
-package dir.cleaner;
+package dir.cleaner.util;
 
 import dir.cleaner.data.Data;
 import javafx.collections.FXCollections;
@@ -17,6 +17,7 @@ public class Directory {
     public final static String programDirectory = System.getProperty("user.dir");
 
     private static final String dirThirdKeyWord = "files";
+
     /**
      * get only files from directory (exclude folders)
      *
@@ -27,7 +28,7 @@ public class Directory {
         return directory.listFiles(File::isFile);
     }
 
-    static Hashtable<Extension, File> getAllExtDirectories() {
+    public static Hashtable<Extension, File> getAllExtDirectories() {
         File directory = new File(workingDirectoryPath);
         File[] files = directory.listFiles(File::isDirectory);
         Hashtable<Extension, File> resultList = new Hashtable<>();
@@ -44,8 +45,8 @@ public class Directory {
         }
     }
 
-    @SuppressWarnings("all")
-    static File getExtDirPath(Extension ext) {
+    @SuppressWarnings("all") //for remove dir.mkdir() result is ignored warning
+    public static File getExtDirPath(Extension ext) {
         Hashtable<Extension, File> list = getAllExtDirectories();
         File dir;
         if (list.containsKey(ext)) {
@@ -57,9 +58,6 @@ public class Directory {
         return dir;
     }
 
-    /*public static String getExtDirectory(Extension ext, File[] files) {
-
-    }*/
 
     /**
      * get files extensions for show them in gui extension table
@@ -72,7 +70,7 @@ public class Directory {
         ObservableList<Extension> resultList = FXCollections.observableArrayList();
 
         Arrays.stream(files)
-                .map(MyFile::getExtension)
+                .map(FileOperation::getExtension)
                 .filter((s) -> !s.getName().equals(" "))
                 .filter(hashSet::add)
                 .filter((s) -> !Data.alwaysIgnoreFileList.contains(s))

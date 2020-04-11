@@ -1,9 +1,9 @@
 package dir.cleaner.settings;
 
-import dir.cleaner.Directory;
-import dir.cleaner.Extension;
 import dir.cleaner.data.Data;
 import dir.cleaner.data.DataType;
+import dir.cleaner.util.Directory;
+import dir.cleaner.util.Extension;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

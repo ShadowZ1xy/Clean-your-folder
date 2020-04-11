@@ -1,4 +1,4 @@
-package dir.cleaner;
+package dir.cleaner.util;
 
 import javafx.scene.control.CheckBox;
 

@@ -1,9 +1,9 @@
-package dir.cleaner;
+package dir.cleaner.util;
 
 import java.io.File;
 import java.util.Optional;
 
-class MyFile {
+public class FileOperation {
     /**
      * get all extensions from String path directory
      * if file dont have extension return: optional[empty]
@@ -22,7 +22,7 @@ class MyFile {
      * @param file only file, not directory
      * @return Extension if file have, Extension with space name if file dont have extension
      */
-    static Extension getExtension(File file) {
+    public static Extension getExtension(File file) {
         String fileName = file.getAbsolutePath();
         Optional obj = getOptionalExtension(fileName);
         if (obj.isPresent()) {
@@ -39,7 +39,7 @@ class MyFile {
      * @param dir  String path to the dir
      * @return true if all ok and file is moved, and false if something go wrong (mainly directory security problem)
      */
-    static boolean moveTo(File file, String dir) {
+    public static boolean moveTo(File file, String dir) {
         return file.renameTo(new File(dir + "\\" + file.getName()));
     }
 

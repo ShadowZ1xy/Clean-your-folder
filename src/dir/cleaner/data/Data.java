@@ -1,6 +1,6 @@
 package dir.cleaner.data;
 
-import dir.cleaner.Extension;
+import dir.cleaner.util.Extension;
 import javafx.scene.control.TableView;
 
 import java.util.HashSet;
