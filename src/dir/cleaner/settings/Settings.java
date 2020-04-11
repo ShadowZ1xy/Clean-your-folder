@@ -48,8 +48,9 @@ public class Settings {
 
     /**
      * write HashSet<Extension> from Data class to data.json file
-     * @param set HashSet from Data class
-     * @param type what identificate key to save in json
+     *
+     * @param set        HashSet from Data class
+     * @param type       what identificate key to save in json
      * @param jsonObject object gained outside for using in Settings.save() function (common for two calls for save)
      */
     @SuppressWarnings("unchecked") //adding this line because json-simple library uses old java version
@@ -74,6 +75,7 @@ public class Settings {
 
     /**
      * load list from data.json and put it to Data class storage
+     *
      * @param type of list to load
      * @return set of extensions
      */
@@ -99,6 +101,7 @@ public class Settings {
 
     /**
      * save path to data.json file for load it after program restart
+     *
      * @param jsonObject common for save functions calls, see - Settings.save() function
      */
     @SuppressWarnings("unchecked") //adding this line because json-simple library uses old java version

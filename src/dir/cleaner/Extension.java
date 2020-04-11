@@ -46,6 +46,7 @@ public class Extension {
 
     /**
      * override equals for correct work in HashSet
+     *
      * @param obj for comparison with this class
      * @return true if objects are identical, false if not
      */

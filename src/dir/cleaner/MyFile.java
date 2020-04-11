@@ -34,6 +34,7 @@ class MyFile {
 
     /**
      * move file to the other directory
+     *
      * @param file file what need to move
      * @param dir  String path to the dir
      * @return true if all ok and file is moved, and false if something go wrong (mainly directory security problem)

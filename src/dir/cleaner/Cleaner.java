@@ -32,12 +32,18 @@ public class Cleaner {
                 continue;
             }
             if (Data.collectExtClearList(extensionTableView).contains(fileExtension)) {
-                String moveToDirPath = Directory.getExtDirPath(fileExtension.getName());
-                File folderToMove = new File(moveToDirPath);
-                folderToMove.mkdir();
+                String moveToDirPath = Directory.getExtDirPath(fileExtension).getAbsolutePath();
                 MyFile.moveTo(file, moveToDirPath);
             }
         }
+        Directory.getAllExtDirectories().forEach((e, f) -> {
+            String currentAbsolutePath = f.getAbsolutePath();
+            String parentFolder = f.getParent();
+            String[] tempArr = f.getName().split("_");
+            int count = f.list().length;
+            String moveToDir = parentFolder + "\\" + count + "_" + tempArr[1] + "_" + tempArr[2];
+            f.renameTo(new File(moveToDir));
+        });
         return true;
     }
 }

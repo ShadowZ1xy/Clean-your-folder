@@ -178,7 +178,7 @@ public class Controller {
      */
     @FXML
     void aiDeleteHandler() {
-        if(aiExtList.getSelectionModel().getSelectedItem() != null) {
+        if (aiExtList.getSelectionModel().getSelectedItem() != null) {
             String selected = aiExtList.getSelectionModel().getSelectedItem();
             Data.alwaysIgnoreFileList.remove(new Extension(selected));
             aiExtList.getItems().remove(selected);
@@ -192,7 +192,7 @@ public class Controller {
      */
     @FXML
     void acDeleteHandler() {
-        if(acExtList.getSelectionModel().getSelectedItem() != null) {
+        if (acExtList.getSelectionModel().getSelectedItem() != null) {
             String selected = acExtList.getSelectionModel().getSelectedItem();
             Data.alwaysCleanFileList.remove(new Extension(selected));
             acExtList.getItems().remove(selected);
