@@ -23,10 +23,10 @@ public class Settings {
     /**
      * save: cleanList, ignoreLeast and directory what need to be cleaned in data.json file
      */
-    public static void save() {
+    public static void save(HashSet<Extension> cleanList, HashSet<Extension> ignoreList) {
         JSONObject jsonObject = new JSONObject();
-        writeList(Data.alwaysCleanFileList, DataType.CLEAN_DATA, jsonObject);
-        writeList(Data.alwaysIgnoreFileList, DataType.IGNORE_DATA, jsonObject);
+        writeList(cleanList, DataType.CLEAN_DATA, jsonObject);
+        writeList(ignoreList, DataType.IGNORE_DATA, jsonObject);
         saveWorkingPath(jsonObject);
     }
 
@@ -38,10 +38,10 @@ public class Settings {
     public static void load(DataType type) {
         switch (type) {
             case IGNORE_DATA:
-                Data.alwaysIgnoreFileList = loadList(DataType.IGNORE_DATA);
+                Data.setAlwaysIgnoreFileList(loadList(DataType.IGNORE_DATA));
                 break;
             case CLEAN_DATA:
-                Data.alwaysCleanFileList = loadList(DataType.CLEAN_DATA);
+                Data.setAlwaysCleanFileList(loadList(DataType.CLEAN_DATA));
                 break;
         }
     }

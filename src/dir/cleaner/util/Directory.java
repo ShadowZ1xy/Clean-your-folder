@@ -73,8 +73,8 @@ public class Directory {
                     .map(FileOperation::getExtension)
                     .filter((s) -> !s.getName().equals(" "))
                     .filter(hashSet::add)
-                    .filter((s) -> !Data.alwaysIgnoreFileList.contains(s))
-                    .filter((s) -> !Data.alwaysCleanFileList.contains(s))
+                    .filter((s) -> !Data.getAlwaysIgnoreFileList().contains(s))
+                    .filter((s) -> !Data.getAlwaysCleanFileList().contains(s))
                     .forEach(resultList::add);
         }
         return resultList;

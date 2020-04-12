@@ -6,8 +6,8 @@ import javafx.scene.control.TableView;
 import java.util.HashSet;
 
 public class Data {
-    public static HashSet<Extension> alwaysIgnoreFileList = new HashSet<>();
-    public static HashSet<Extension> alwaysCleanFileList = new HashSet<>();
+    private static HashSet<Extension> alwaysIgnoreFileList = new HashSet<>();
+    private static HashSet<Extension> alwaysCleanFileList = new HashSet<>();
 
     /**
      * Collect list of checked extensions from gui table, in that list add "alwaysClean" list from data
@@ -22,5 +22,21 @@ public class Data {
                 .forEach(resultList::add);
         resultList.addAll(alwaysCleanFileList);
         return resultList;
+    }
+
+    public static HashSet<Extension> getAlwaysIgnoreFileList() {
+        return alwaysIgnoreFileList;
+    }
+
+    public static void setAlwaysIgnoreFileList(HashSet<Extension> alwaysIgnoreFileList) {
+        Data.alwaysIgnoreFileList = alwaysIgnoreFileList;
+    }
+
+    public static HashSet<Extension> getAlwaysCleanFileList() {
+        return alwaysCleanFileList;
+    }
+
+    public static void setAlwaysCleanFileList(HashSet<Extension> alwaysCleanFileList) {
+        Data.alwaysCleanFileList = alwaysCleanFileList;
     }
 }

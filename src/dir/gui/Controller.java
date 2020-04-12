@@ -99,13 +99,13 @@ public class Controller {
             pathTextField.setText(dirAbsolutePath);
             Directory.workingDirectoryPath = dirAbsolutePath;
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
-            Settings.save();
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
 
     @FXML
     public void closeApplication() {
-        Settings.save();
+        Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         System.exit(0);
     }
 
@@ -124,14 +124,14 @@ public class Controller {
         }
         pathTextField.setText(Directory.workingDirectoryPath);
 
-        if (Data.alwaysIgnoreFileList.size() > 0) {
-            Data.alwaysIgnoreFileList.stream()
+        if (Data.getAlwaysIgnoreFileList().size() > 0) {
+            Data.getAlwaysIgnoreFileList().stream()
                     .map(Extension::getName)
                     .forEach((s) -> alwaysIgnoreList.add(s));
         }
 
-        if (Data.alwaysCleanFileList.size() > 0) {
-            Data.alwaysCleanFileList.stream()
+        if (Data.getAlwaysCleanFileList().size() > 0) {
+            Data.getAlwaysCleanFileList().stream()
                     .map(Extension::getName)
                     .forEach((s) -> alwaysCleanList.add(s));
         }
@@ -153,9 +153,9 @@ public class Controller {
         String text = aiTextField.getText();
         if (text.length() != 0 && !aiExtList.getItems().contains(text)) {
             aiExtList.getItems().add(text);
-            Data.alwaysIgnoreFileList.add(new Extension(text));
+            Data.getAlwaysIgnoreFileList().add(new Extension(text));
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
-            Settings.save();
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
 
@@ -167,9 +167,9 @@ public class Controller {
         String text = acTextField.getText();
         if (text.length() != 0 && !acExtList.getItems().contains(text)) {
             acExtList.getItems().add(text);
-            Data.alwaysCleanFileList.add(new Extension(text));
+            Data.getAlwaysCleanFileList().add(new Extension(text));
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
-            Settings.save();
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
 
@@ -180,10 +180,10 @@ public class Controller {
     void aiDeleteHandler() {
         if (aiExtList.getSelectionModel().getSelectedItem() != null) {
             String selected = aiExtList.getSelectionModel().getSelectedItem();
-            Data.alwaysIgnoreFileList.remove(new Extension(selected));
+            Data.getAlwaysIgnoreFileList().remove(new Extension(selected));
             aiExtList.getItems().remove(selected);
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
-            Settings.save();
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
 
@@ -194,10 +194,10 @@ public class Controller {
     void acDeleteHandler() {
         if (acExtList.getSelectionModel().getSelectedItem() != null) {
             String selected = acExtList.getSelectionModel().getSelectedItem();
-            Data.alwaysCleanFileList.remove(new Extension(selected));
+            Data.getAlwaysCleanFileList().remove(new Extension(selected));
             acExtList.getItems().remove(selected);
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
-            Settings.save();
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
 }
