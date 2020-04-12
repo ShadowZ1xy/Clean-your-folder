@@ -1,108 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainField" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0"
-            style="-fx-background-color: #16191C;" xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane fx:id="mainField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #16191C;"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="dir.gui.Controller">
     <Label layoutX="192.0" layoutY="20.0" text="Clean your folder" textAlignment="CENTER" textFill="#3fd14b">
         <font>
             <Font name="Hack Regular" size="31.0"/>
         </font>
     </Label>
-    <AnchorPane layoutX="1.0" layoutY="75.0" prefHeight="450.0" prefWidth="700.0"
+    <AnchorPane layoutX="1.0" layoutY="75.0" prefHeight="425.0" prefWidth="700.0"
                 style="-fx-background-color: #3A4147;">
-        <Button fx:id="cleanButton" layoutX="299.0" layoutY="391.0" mnemonicParsing="false"
+        <Button fx:id="browseButton" layoutX="587.0" layoutY="13.0" mnemonicParsing="false"
+                onAction="#browseButtonHandler" prefHeight="29.0" prefWidth="76.0"
+                style="-fx-background-color: #3F56D1;" text="Browse" textFill="WHITE"/>
+        <Label layoutX="36.0" layoutY="12.0" prefHeight="30.0" prefWidth="90.0" text="Directory:" textFill="WHITE">
+            <font>
+                <Font size="21.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="pathTextField" layoutX="131.0" layoutY="13.0" prefHeight="30.0" prefWidth="450.0"
+                   promptText="Example: C:\Users\MyUser\Desktop"
+                   style="-fx-background-color: #23272B; -fx-text-fill: fafafa;">
+            <font>
+                <Font name="Hack Regular" size="13.0"/>
+            </font>
+        </TextField>
+        <Button fx:id="cleanButton" layoutX="299.0" layoutY="365.0" mnemonicParsing="false"
                 onAction="#cleanButtonHandler" prefHeight="46.0" prefWidth="103.0"
                 style="-fx-background-color: #3F56D1;" text="Clean" textFill="WHITE">
             <font>
                 <Font size="20.0"/>
             </font>
         </Button>
-        <AnchorPane layoutX="25.0" layoutY="-13.0" prefHeight="79.0" prefWidth="663.0">
-            <Button fx:id="browseButton" layoutX="563.0" layoutY="26.0" mnemonicParsing="false"
-                    onAction="#browseButtonHandler" prefHeight="29.0" prefWidth="76.0"
-                    style="-fx-background-color: #3F56D1;" text="Browse" textFill="WHITE"/>
-            <TextField fx:id="pathTextField" layoutX="107.0" layoutY="27.0" prefHeight="30.0" prefWidth="450.0"
-                       promptText="Example: C:\Users\MyUser\Desktop"
-                       style="-fx-background-color: #23272B; -fx-text-fill: fafafa;">
-                <font>
-                    <Font name="Hack Regular" size="13.0"/>
-                </font>
-            </TextField>
-            <Label layoutX="11.0" layoutY="26.0" prefHeight="30.0" prefWidth="90.0" text="Directory:"
-                   textFill="WHITE">
-                <font>
-                    <Font size="21.0"/>
-                </font>
-            </Label>
-        </AnchorPane>
-        <TabPane layoutX="46.0" layoutY="58.0" prefHeight="319.0" prefWidth="608.0"
-                 style="-fx-background-color: #6C7176;" tabClosingPolicy="UNAVAILABLE">
-            <Tab text="By extension">
-                <AnchorPane prefHeight="375.0" prefWidth="608.0">
-                    <TableView fx:id="extensionsCheckboxTable" layoutX="25.0" layoutY="20.0"
-                               prefHeight="259.0" prefWidth="115.0" style="-fx-background-color: #9EA1A4;">
+        <TableView fx:id="extensionsCheckboxTable" layoutX="36.0" layoutY="79.0" prefHeight="276.0" prefWidth="115.0"
+                   style="-fx-background-color: #9EA1A4;">
 
-                        <columns>
-                            <TableColumn fx:id="checkboxCol" prefWidth="25.0" resizable="false">
-                                <graphic>
-                                    <CheckBox fx:id="selectAllCheckbox" cacheShape="false"
-                                              centerShape="false" mnemonicParsing="false"
-                                              onAction="#allCheckBoxHandler" prefHeight="17.0"
-                                              prefWidth="0.0"/>
-                                </graphic>
-                            </TableColumn>
-                            <TableColumn fx:id="extensionCol" prefWidth="75.0" resizable="false"
-                                         style="-fx-alignment: center;" text="Extension"/>
-                        </columns>
-                    </TableView>
-                    <AnchorPane layoutX="181.0" layoutY="11.0" prefHeight="283.0" prefWidth="200.0">
-                        <ListView fx:id="aiExtList" layoutY="70.0" prefHeight="200.0" prefWidth="200.0"
-                                  style="-fx-background-color: #9EA1A4; -fx-alignment: center;"/>
-                        <TextField fx:id="aiTextField" layoutY="37.0" prefHeight="25.0"
-                                   prefWidth="200.0" promptText="Type extension"
-                                   style="-fx-alignment: center;"/>
-                        <Button fx:id="aiAdd" layoutY="9.0" mnemonicParsing="false"
-                                onAction="#aiAddHandler" style="-fx-background-color: #3F56D1;"
-                                text="Add" textFill="WHITE"/>
-                        <Button fx:id="aiDelete" layoutX="148.0" layoutY="9.0" mnemonicParsing="false"
-                                onAction="#aiDeleteHandler" style="-fx-background-color: #3F56D1;"
-                                text="Delete" textFill="WHITE"/>
-                        <Label layoutX="52.0" layoutY="7.0" prefHeight="30.0" prefWidth="90.0"
-                               text="Always ignore" textFill="WHITE">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                        </Label>
-                    </AnchorPane>
-                    <AnchorPane layoutX="397.0" layoutY="11.0" prefHeight="276.0" prefWidth="200.0">
-                        <ListView fx:id="acExtList" layoutY="70.0" prefHeight="200.0" prefWidth="200.0"
-                                  style="-fx-background-color: #9EA1A4; -fx-alignment: center;"/>
-                        <TextField fx:id="acTextField" layoutY="37.0" prefHeight="25.0"
-                                   prefWidth="200.0" promptText="Type extension"
-                                   style="-fx-alignment: center;"/>
-                        <Button fx:id="acAdd" layoutY="9.0" mnemonicParsing="false"
-                                onAction="#acAddHandler" style="-fx-background-color: #3F56D1;"
-                                text="Add" textFill="WHITE"/>
-                        <Button fx:id="acDelete" layoutX="148.0" layoutY="9.0" mnemonicParsing="false"
-                                onAction="#acDeleteHandler" style="-fx-background-color: #3F56D1;"
-                                text="Delete" textFill="WHITE"/>
-                        <Label layoutX="55.0" layoutY="7.0" prefHeight="30.0" prefWidth="90.0"
-                               text="Always clean" textFill="WHITE">
-                            <font>
-                                <Font size="14.0"/>
-                            </font>
-                        </Label>
-                    </AnchorPane>
-                </AnchorPane>
-            </Tab>
-            <Tab text="By type">
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
-            </Tab>
-        </TabPane>
+            <columns>
+                <TableColumn fx:id="checkboxCol" prefWidth="25.0" resizable="false">
+                    <graphic>
+                        <CheckBox fx:id="selectAllCheckbox" cacheShape="false" centerShape="false"
+                                  mnemonicParsing="false" onAction="#allCheckBoxHandler" prefHeight="17.0"
+                                  prefWidth="0.0"/>
+                    </graphic>
+                </TableColumn>
+                <TableColumn fx:id="extensionCol" prefWidth="75.0" resizable="false" style="-fx-alignment: center;"
+                             text="Extension"/>
+            </columns>
+        </TableView>
+        <AnchorPane layoutX="209.0" layoutY="86.0" prefHeight="276.0" prefWidth="200.0">
+            <children>
+                <ListView fx:id="aiExtList" layoutY="70.0" prefHeight="200.0" prefWidth="200.0"
+                          style="-fx-background-color: #9EA1A4; -fx-alignment: center;"/>
+                <TextField fx:id="aiTextField" layoutY="37.0" prefHeight="25.0" prefWidth="200.0"
+                           promptText="Type extension" style="-fx-alignment: center;"/>
+                <Button fx:id="aiAdd" layoutY="9.0" mnemonicParsing="false" onAction="#aiAddHandler"
+                        style="-fx-background-color: #3F56D1;" text="Add" textFill="WHITE"/>
+                <Button fx:id="aiDelete" layoutX="148.0" layoutY="9.0" mnemonicParsing="false"
+                        onAction="#aiDeleteHandler" style="-fx-background-color: #3F56D1;" text="Delete"
+                        textFill="WHITE"/>
+                <Label layoutX="52.0" layoutY="7.0" prefHeight="30.0" prefWidth="90.0" text="Always ignore"
+                       textFill="WHITE">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="437.0" layoutY="86.0" prefHeight="276.0" prefWidth="200.0">
+            <children>
+                <ListView fx:id="acExtList" layoutY="70.0" prefHeight="200.0" prefWidth="200.0"
+                          style="-fx-background-color: #9EA1A4; -fx-alignment: center;"/>
+                <TextField fx:id="acTextField" layoutY="37.0" prefHeight="25.0" prefWidth="200.0"
+                           promptText="Type extension" style="-fx-alignment: center;"/>
+                <Button fx:id="acAdd" layoutY="9.0" mnemonicParsing="false" onAction="#acAddHandler"
+                        style="-fx-background-color: #3F56D1;" text="Add" textFill="WHITE"/>
+                <Button fx:id="acDelete" layoutX="148.0" layoutY="9.0" mnemonicParsing="false"
+                        onAction="#acDeleteHandler" style="-fx-background-color: #3F56D1;" text="Delete"
+                        textFill="WHITE"/>
+                <Label layoutX="55.0" layoutY="7.0" prefHeight="30.0" prefWidth="90.0" text="Always clean"
+                       textFill="WHITE">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
     </AnchorPane>
     <Button layoutX="662.0" mnemonicParsing="false" onAction="#closeApplication" prefHeight="20.0" prefWidth="20.0"
             style="-fx-background-color: #3F56D1;" text="x" textFill="WHITE">

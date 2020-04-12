@@ -14,7 +14,7 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED); //remove top title bar from app
         Parent root = FXMLLoader.load(getClass().getResource("gui/gui.fxml"));
         primaryStage.setTitle("Clean your folder");
-        primaryStage.setScene(new Scene(root, 700, 525));
+        primaryStage.setScene(new Scene(root, 700, 500));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
