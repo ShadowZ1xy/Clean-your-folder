@@ -68,14 +68,15 @@ public class Directory {
     public static ObservableList<Extension> getOnlyShowFilesExtensions(File[] files) {
         HashSet<Extension> hashSet = new HashSet<>();
         ObservableList<Extension> resultList = FXCollections.observableArrayList();
-
-        Arrays.stream(files)
-                .map(FileOperation::getExtension)
-                .filter((s) -> !s.getName().equals(" "))
-                .filter(hashSet::add)
-                .filter((s) -> !Data.alwaysIgnoreFileList.contains(s))
-                .filter((s) -> !Data.alwaysCleanFileList.contains(s))
-                .forEach(resultList::add);
+        if (files != null) {
+            Arrays.stream(files)
+                    .map(FileOperation::getExtension)
+                    .filter((s) -> !s.getName().equals(" "))
+                    .filter(hashSet::add)
+                    .filter((s) -> !Data.alwaysIgnoreFileList.contains(s))
+                    .filter((s) -> !Data.alwaysCleanFileList.contains(s))
+                    .forEach(resultList::add);
+        }
         return resultList;
     }
 }
