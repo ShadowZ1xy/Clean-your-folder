@@ -15,6 +15,7 @@ public class Cleaner {
      * get extensions from gui Table, add list of always clean extensions (from Data.alwaysCleanFileList)
      * filter files with extensions what's need to cleaned
      * clean all them with putting there appropriate directory's
+     * rename directories first part of name depending how many files are in it
      *
      * @param extensionTableView get from Controller class
      * @return true if all okay, false if directory is empty

@@ -28,6 +28,11 @@ public class Directory {
         return directory.listFiles(File::isFile);
     }
 
+    /**
+     * return list of directories for saving files created by this programm
+     *
+     * @return hashtable of directories
+     */
     public static Hashtable<Extension, File> getAllExtDirectories() {
         File directory = new File(workingDirectoryPath);
         File[] files = directory.listFiles(File::isDirectory);
@@ -45,6 +50,11 @@ public class Directory {
         }
     }
 
+    /**
+     * get dir where need to be save file
+     * @param ext extension of file
+     * @return directory
+     */
     @SuppressWarnings("all") //for remove dir.mkdir() result is ignored warning
     public static File getExtDirPath(Extension ext) {
         Hashtable<Extension, File> list = getAllExtDirectories();

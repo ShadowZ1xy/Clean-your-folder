@@ -10,6 +10,11 @@ public class Extension {
         return check;
     }
 
+    /**
+     * for gui checkbox
+     *
+     * @param x set checkbox status
+     */
     public void setCheck(Boolean x) {
         if (x) {
             check.setSelected(true);

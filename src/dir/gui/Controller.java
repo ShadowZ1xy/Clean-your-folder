@@ -70,7 +70,9 @@ public class Controller {
     @FXML
     private AnchorPane mainField;
 
-
+    /**
+     * For extension table all checkbox select/deselect via one checkbox
+     */
     @FXML
     public void allCheckBoxHandler() {
         allCheckBoxClicked = selectAllCheckbox.isSelected();
@@ -85,7 +87,7 @@ public class Controller {
     }
 
     /**
-     * browse directory with windows explorer folder choose option
+     * browse directory with explorer folder choose option
      * save that to Directory.workingDirectoryPath
      * update extensions data and save them into data.json file
      */
@@ -102,6 +104,7 @@ public class Controller {
             Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
         }
     }
+
 
     @FXML
     public void closeApplication() {
