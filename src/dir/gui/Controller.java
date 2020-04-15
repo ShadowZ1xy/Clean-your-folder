@@ -119,7 +119,7 @@ public class Controller {
         Settings.load(DataType.CLEAN_DATA);
         Settings.load(DataType.IGNORE_DATA);
 
-        if (!Directory.workingDirectoryPath.equals("")) {
+        if (Directory.workingDirectoryPath != null && !Directory.workingDirectoryPath.equals("")) {
             Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
         }
         pathTextField.setText(Directory.workingDirectoryPath);
