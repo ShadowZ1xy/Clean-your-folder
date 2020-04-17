@@ -83,7 +83,9 @@ public class Controller {
 
     @FXML
     public void cleanButtonHandler() {
-        Cleaner.cleanDirectory(extensionsCheckboxTable);
+        if (Cleaner.cleanDirectory(extensionsCheckboxTable)) {
+            extensionsCheckboxTable.setItems(FXCollections.observableArrayList());
+        }
     }
 
     /**

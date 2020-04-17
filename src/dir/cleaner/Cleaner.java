@@ -4,9 +4,11 @@ import dir.cleaner.data.Data;
 import dir.cleaner.util.Directory;
 import dir.cleaner.util.Extension;
 import dir.cleaner.util.FileOperation;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 
 import java.io.File;
+import java.util.HashMap;
 
 public class Cleaner {
 
@@ -22,6 +24,7 @@ public class Cleaner {
      */
     @SuppressWarnings("all") //for remove renameTo "result is ignored" warning
     public static boolean cleanDirectory(TableView<Extension> extensionTableView) {
+        HashMap<Extension, Integer> logger = new HashMap<>();
         File[] files;
         try {
             files = Directory.getAllFiles();
@@ -36,6 +39,11 @@ public class Cleaner {
                 continue;
             }
             if (Data.collectExtClearList(extensionTableView).contains(fileExtension)) {
+                if (logger.containsKey(fileExtension)) {
+                    logger.put(fileExtension, logger.get(fileExtension) + 1);
+                } else {
+                    logger.put(fileExtension, 1);
+                }
                 String moveToDirPath = Directory.getExtDirPath(fileExtension).getAbsolutePath();
                 FileOperation.moveTo(file, moveToDirPath);
             }
@@ -48,6 +56,14 @@ public class Cleaner {
             String moveToDir = parentFolder + "\\" + count + "_" + tempArr[1] + "_" + tempArr[2];
             f.renameTo(new File(moveToDir));
         });
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Cleaned files list.");
+        alert.setHeaderText(null);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Cleaned files: \n \n");
+        logger.forEach((e, i) -> stringBuilder.append(e.getName().toUpperCase() + ": " + i + "\n"));
+        alert.setContentText(stringBuilder.toString());
+        alert.showAndWait();
         return true;
     }
 }

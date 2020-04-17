@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 public class Settings {
-    private static final String pathToSettings = Directory.programDirectory + "\\src\\dir\\resources\\data.json";
+    private static String pathToSettings = Directory.programDirectory + "\\src\\dir\\resources\\data.json";
     private static final String cleanListKey = "cleanListKey";
     private static final String ignoreListKey = "ignoreListKey";
     private static final String pathKey = "pathKey";
