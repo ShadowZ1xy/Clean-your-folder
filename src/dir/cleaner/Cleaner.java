@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Cleaner {
 
@@ -24,12 +25,11 @@ public class Cleaner {
      */
     @SuppressWarnings("all") //for remove renameTo "result is ignored" warning
     public static boolean cleanDirectory(TableView<Extension> extensionTableView) {
-        HashMap<Extension, Integer> logger = new HashMap<>();
+        HashMap<Extension, Integer> logStatistic = new HashMap<>();
         File[] files;
         try {
             files = Directory.getAllFiles();
         } catch (NullPointerException e) {
-            System.out.println("Your folder already clear :)");
             return false;
         }
         for (File file : files) {
@@ -39,31 +39,56 @@ public class Cleaner {
                 continue;
             }
             if (Data.collectExtClearList(extensionTableView).contains(fileExtension)) {
-                if (logger.containsKey(fileExtension)) {
-                    logger.put(fileExtension, logger.get(fileExtension) + 1);
+                //regionstart logger region
+                if (logStatistic.containsKey(fileExtension)) {
+                    logStatistic.put(fileExtension, logStatistic.get(fileExtension) + 1);
                 } else {
-                    logger.put(fileExtension, 1);
+                    logStatistic.put(fileExtension, 1);
                 }
+                //endregion
                 String moveToDirPath = Directory.getExtDirPath(fileExtension).getAbsolutePath();
                 FileOperation.moveTo(file, moveToDirPath);
             }
         }
-        Directory.getAllExtDirectories().forEach((e, f) -> {
-            String currentAbsolutePath = f.getAbsolutePath();
-            String parentFolder = f.getParent();
-            String[] tempArr = f.getName().split("_");
-            int count = f.list().length;
-            String moveToDir = parentFolder + "\\" + count + "_" + tempArr[1] + "_" + tempArr[2];
-            f.renameTo(new File(moveToDir));
-        });
+        renameDirectories();
+        showCleanerStatistic(logStatistic);
+        return true;
+    }
+
+    /**
+     * shows how many files and what types have been cleaned
+     *
+     * @param statistic list of extensions and number of files with corresponding extensions that have been cleaned
+     */
+    private static void showCleanerStatistic(HashMap<Extension, Integer> statistic) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Cleaned files list.");
         alert.setHeaderText(null);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Cleaned files: \n \n");
-        logger.forEach((e, i) -> stringBuilder.append(e.getName().toUpperCase() + ": " + i + "\n"));
+        statistic.forEach((e, i) -> stringBuilder.append(e.getName()
+                .toUpperCase())
+                .append(": ")
+                .append(i)
+                .append("\n"));
         alert.setContentText(stringBuilder.toString());
         alert.showAndWait();
-        return true;
+    }
+
+    /**
+     * renames directories according to how many files it contains
+     * in the format (count_extension_"files")
+     */
+    private static void renameDirectories() {
+        Directory.getAllExtDirectories().forEach((e, f) -> {
+            String parentFolder = f.getParent();
+            String[] tempArr = f.getName().split("_");
+            int count = Objects.requireNonNull(f.list()).length;
+            String moveToDir = parentFolder + "\\" + count + "_" + tempArr[1] + "_" + tempArr[2];
+            if (!f.renameTo(new File(moveToDir))) {
+                System.out.println("directory cant be renamed");
+                System.out.println("problem is on: " + e.getName() + " extension");
+            }
+        });
     }
 }
