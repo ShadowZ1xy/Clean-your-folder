@@ -107,6 +107,26 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void reloadButtonHandler() {
+        File file = new File(pathTextField.getText());
+        if (file.exists() && file.isDirectory()) {
+            Directory.workingDirectoryPath = file.getAbsolutePath();
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
+            Settings.save(Data.getAlwaysCleanFileList(), Data.getAlwaysIgnoreFileList());
+        } else {
+            pathTextField.clear();
+            extensionsData.clear();
+            Directory.workingDirectoryPath = "";
+            Update.updateExtensionTableInGui(extensionsData, extensionsCheckboxTable);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Path problem");
+            alert.setHeaderText(null);
+            alert.setContentText("Your path is not exist. \nPlease try again.");
+            alert.showAndWait();
+        }
+    }
 
     @FXML
     public void closeApplication() {
