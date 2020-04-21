@@ -109,7 +109,7 @@ public class Settings {
             } else {
                 jsonObject.put(CLEAN_LIST_KEY, jsonArray);
             }
-            FileWriter fileWriter = new FileWriter(dataFile);
+            FileWriter fileWriter = new FileWriter(new File(PATH_TO_DATA_FILE));
             fileWriter.write(jsonObject.toString());
             fileWriter.close();
         } catch (Exception e) {
@@ -153,7 +153,7 @@ public class Settings {
     private static void saveWorkingPath(JSONObject jsonObject, String path) {
         jsonObject.put(PATH_KEY, path);
         try {
-            FileWriter fileWriter = new FileWriter(dataFile);
+            FileWriter fileWriter = new FileWriter(new File(PATH_TO_DATA_FILE));
             fileWriter.write(jsonObject.toString());
             fileWriter.close();
         } catch (Exception e) {
